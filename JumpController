@@ -1,0 +1,46 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class JumpController : MonoBehaviour
+{
+    public float jumpHeight = 10f; // Define the jump height
+    //public float jumpForce = 5000000000000000000000000000f;
+    private bool isTouchingGround = true;
+    private float minHeight = 0f;
+    private Rigidbody rb;
+
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
+    private void Update()
+    {
+        if (transform.position.y > minHeight)
+        {
+            isTouchingGround = false;
+      
+        }
+        else
+        {
+            isTouchingGround = true;
+
+        }
+        // Check if the space key is pressed
+        if (Input.GetKeyDown(KeyCode.Space) && isTouchingGround)
+        {
+            Jump();
+        }
+    }
+
+    private void Jump()
+    {
+        // Apply jump force to the object
+        //GetComponent<Rigidbody>().AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        // Calculate the jump velocity based on the desired jump height
+        float jumpVelocity = Mathf.Sqrt(2f * jumpHeight * Mathf.Abs(Physics.gravity.y));
+
+        // Apply the jump velocity to the rigidbody's upward direction
+        rb.velocity += Vector3.up * jumpVelocity;
+    }
+}
