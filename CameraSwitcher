@@ -1,0 +1,29 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+
+public class CameraSwitcherOne : MonoBehaviour
+{
+    public Camera MainCamera;  //camera1
+    public Camera SecondCamera; //camera2
+    private bool isAlternativeCameraActive = false;
+
+    private void Start()
+    {
+        // Disable the alternative camera at the beginning
+        SecondCamera.enabled = false;
+    }
+
+    private void Update()
+    {
+        // Check if the desired key (e.g., 'C') is pressed
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            // Switch between the main camera and the alternative camera
+            isAlternativeCameraActive = !isAlternativeCameraActive; //from False to True and viceversa
+            MainCamera.enabled = !isAlternativeCameraActive;
+            SecondCamera.enabled = isAlternativeCameraActive;
+        }
+    }
+}
