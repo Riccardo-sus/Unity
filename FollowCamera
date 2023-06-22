@@ -1,0 +1,24 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class FollowCamera : MonoBehaviour
+    {
+        // Start is called before the first frame update
+       public GameObject player;
+       public Vector3 offset = new Vector3(0, 1.81f , 3.63f); //offset with respect to the GameObject center
+
+       void Start()
+          {
+
+          }
+
+        // Update is called once per frame
+        //LateUpdate updates after the update is called. This allows to have not disorder when two movements are in place. 
+        void LateUpdate()
+          {
+            transform.position = player.transform.position+offset; //follow the position
+            transform.rotation = player.transform.rotation;  //follow the rotation
+          }
+    }
+
