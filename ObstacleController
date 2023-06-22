@@ -1,0 +1,47 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ObstacleController : MonoBehaviour
+{
+    //PUBLIC VARIABLES
+    public float speed = 5f;
+    private float heightY = -5f;
+    private float resetZValue = 0f; // Define the Z value at which reset should occur
+    private Vector3 initialPosition;
+    private Quaternion initialRotation;
+
+    // Start is called before the first frame update
+    private void Start()
+    {
+        initialPosition = transform.position;
+        initialRotation = transform.rotation;
+    }
+
+
+    // Update is called once per frame
+    void Update()
+    {
+        //Edit-Project settings-Input Manager --we can see all the inputs (horizontal and vertical for example)
+
+        // Move the vehicle forward
+        //transform.Translate(0, 0, 1);
+        transform.Translate(Vector3.forward*Time.deltaTime*speed);
+        if (transform.position.z <= resetZValue || transform.position.y == heightY)
+        {
+            StartCoroutine(ResetCoroutine());
+        }
+    }
+    private System.Collections.IEnumerator ResetCoroutine()
+    {
+        // Reset the game object to its initial position
+        transform.position = initialPosition;
+        transform.rotation = initialRotation;
+
+        // Delay for one frame to ensure the position update takes effect
+        yield return null;
+
+        // Restart the public class
+        Start();
+    }
+}
